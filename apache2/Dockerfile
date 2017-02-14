@@ -8,6 +8,8 @@ ENV WEB_PHP_SOCKET=$PHP_SOCKET
 
 ENV WEB_DOCUMENT_ROOT=/var/www/public
 
+COPY 000-default.conf /etc/apache2/sites-available/
+
 EXPOSE 80 443
 
 WORKDIR /var/www/public

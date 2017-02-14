@@ -18,7 +18,6 @@ services:
             args:
                 - INSTALL_XDEBUG=false
                 - COMPOSER_GLOBAL_INSTALL=false
-                - INSTALL_LINUXBREW=false
                 - PUID=1000
                 - PGID=1000
                 - TZ=UTC
@@ -40,7 +39,6 @@ services:
                 - INSTALL_XDEBUG=false
                 - INSTALL_ZIP_ARCHIVE=false
                 - INSTALL_BCMATH=false
-                - INSTALL_MEMCACHED=false
                 - INSTALL_OPCACHE=false
                 - INSTALL_EXIF=false
             dockerfile: Dockerfile-70
@@ -91,45 +89,10 @@ services:
         ports:
             - "3306:3306"
 
-
-
-### Memcached Container #####################################
-
-    memcached:
-        build: ./memcached
-        volumes:
-            - memcached:/var/lib/memcached
-        ports:
-            - "11211:11211"
-        links:
-            - php-fpm
-
-
-### phpMyAdmin Container ####################################
-
-    phpmyadmin:
-        build: ./phpmyadmin
-        environment:
-            PMA_ARBITRARY: 1
-            MYSQL_USER: homestead
-            MYSQL_PASSWORD: secret
-            MYSQL_ROOT_PASSWORD: root
-        ports:
-            - "8080:80"
-        links:
-            # for mysql container
-            - "mysql:db"
-            # for mariadb container
-            # - "mariadb:db"
-
 ### Volumes Setup ###########################################
 
 volumes:
     mysql:
-        driver: "local"
-    memcached:
-        driver: "local"
-    phpmyadmin:
         driver: "local"
     sessions:    ## nothing is connected to this (- ./data/sessions:/sessions)
         driver: "local"
